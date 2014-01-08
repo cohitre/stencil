@@ -1,6 +1,6 @@
 # Stencil
 
-TODO: Write a gem description
+An easy way to create reusable widgets.
 
 ## Installation
 
@@ -18,7 +18,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    class UserInformationStencil < Stencil::Base
+      template_file "app/stencils/user_information_stencil.html.erb"
+      attr_writer :size
+
+      def big?
+        @size == :big
+      end
+    end
+
+    stencil = UserInformationStencil.new
+    stencil.size = :big
+    stencil.render
 
 ## Contributing
 
