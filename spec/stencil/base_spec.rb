@@ -7,6 +7,23 @@ describe Stencil::Base do
     sample
   end
 
+  let :user_class do
+    class UserProfileStencil < Stencil::Base
+      template "spec/fixtures/user_profile_stencil.html.erb"
+      needs :user
+      attr_writer :size
+
+      def big?
+        @size == :big
+      end
+
+      def name
+        @user.name
+      end
+    end
+    UserProfileStencil
+  end
+
   describe ".needs" do
     it "should concatenate the passed arguments" do
       sample = Class.new(described_class)
@@ -48,6 +65,30 @@ describe Stencil::Base do
       subject.instance_variable_get("@cool").should == "1"
       subject.instance_variable_get("@awesome").should == "2"
       subject.instance_variable_get("@great").should == "3"
+    end
+  end
+
+  describe "#template" do
+    it "should return a template engine" do
+      user = double(user,
+        name: "cohitre"
+      )
+      subject = user_class.new(user: user)
+      subject.template.should be_a Tilt::ERBTemplate
+    end
+  end
+
+  describe "#to_html" do
+    it "should render the template" do
+      result = %Q[<div class="user ">
+  <strong>cohitre</strong>
+</div>
+]
+      user = double(user,
+        name: "cohitre"
+      )
+      subject = user_class.new(user: user)
+      subject.to_html.should == result
     end
   end
 end

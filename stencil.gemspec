@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["cohitre"]
   spec.email         = ["carlosrr@gmail.com"]
   spec.description   = %q{Very reusable and maintanable template widgets}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.summary       = %q{Stencil is a small framework to generate very reusable and testable views. Each stencil class has its own methods and template file. It's inspired by Erector to allow for inheritance and encapsulation without losing the convenience of template files.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
