@@ -1,6 +1,9 @@
 # Stencil
 
-An easy way to create reusable widgets.
+Stencil is a small framework to generate very reusable and testable views. Each
+stencil class has its own methods and template file. It's inspired by
+[Erector](https://github.com/erector/erector) to allow for inheritance and
+encapsulation without losing the convenience of template files.
 
 ## Installation
 
@@ -18,32 +21,40 @@ Or install it yourself as:
 
 ## Usage
 
-    # app/stencils/user_information_stencil.rb
+## Example
 
-    class UserInformationStencil < Stencil::Base
-      template "app/stencils/user_information_stencil.html.erb"
-      needs :user
-      attr_writer :size
+```ruby
+# app/stencils/user_information_stencil.rb
 
-      def big?
-        @size == :big
-      end
+class UserInformationStencil < Stencil::Base
+  template "app/stencils/user_information_stencil.html.erb"
+  needs :user
+  attr_writer :size
 
-      def name
-        @user.name
-      end
-    end
+  def big?
+    @size == :big
+  end
 
-    # app/stencils/user_information_stencil.html.erb
-    <div class="user <%= "user-big" if big? %>">
-      <strong><%= name %></strong>
-    </div>
+  def name
+    @user.name
+  end
+end
+```
 
-    # some other file
+```erb
+# app/stencils/user_information_stencil.html.erb
+<div class="user <%= "user-big" if big? %>">
+  <strong><%= name %></strong>
+</div>
+```
 
-    stencil = UserInformationStencil.new(user: @user)
-    stencil.size = :big
-    stencil.render
+```ruby
+# some_other_file.ruby
+
+stencil = UserInformationStencil.new(user: @user)
+stencil.size = :big
+stencil.render
+```
 
 ## Contributing
 
