@@ -1,7 +1,6 @@
 module Stencil
   class MissingNeedError < StandardError; end
   class Base
-
     class << self
       def needs(*keys)
         @keys ||= []
@@ -30,8 +29,7 @@ module Stencil
       options.each_pair do |k, v|
         self.instance_variable_set "@#{k}", v
       end
-      @options = options
-      self.class.assert_keys(@options.keys)
+      self.class.assert_keys(options.keys)
     end
 
     def template
@@ -41,5 +39,7 @@ module Stencil
     def to_html
       self.template.render(self)
     end
+
+    alias :render :to_html
   end
 end

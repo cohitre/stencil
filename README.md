@@ -18,16 +18,30 @@ Or install it yourself as:
 
 ## Usage
 
+    # app/stencils/user_information_stencil.rb
+
     class UserInformationStencil < Stencil::Base
-      template_file "app/stencils/user_information_stencil.html.erb"
+      template "app/stencils/user_information_stencil.html.erb"
+      needs :user
       attr_writer :size
 
       def big?
         @size == :big
       end
+
+      def name
+        @user.name
+      end
     end
 
-    stencil = UserInformationStencil.new
+    # app/stencils/user_information_stencil.html.erb
+    <div class="user <%= "user-big" if big? %>">
+      <strong><%= name %></strong>
+    </div>
+
+    # some other file
+
+    stencil = UserInformationStencil.new(user: @user)
     stencil.size = :big
     stencil.render
 
