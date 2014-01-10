@@ -1,5 +1,6 @@
 module Stencil
   class MissingNeedError < StandardError; end
+
   class Base
     class << self
       def needs(*keys)
@@ -16,12 +17,18 @@ module Stencil
         end
       end
 
-      def template(file)
-        @template_file = file
+      def template(name)
+        @template_name = name
       end
 
       def template_file
-        @template_file
+        finder = TemplateFinder.new
+        finder.extensions << :haml
+        finder.extensions << :erb
+
+        finder.paths << "."
+
+        @template_file ||= finder.find(@template_name)
       end
     end
 
@@ -33,7 +40,7 @@ module Stencil
     end
 
     def template
-      Tilt.new(self.class.template_file)
+      @template ||= Tilt.new(self.class.template_file)
     end
 
     def to_html

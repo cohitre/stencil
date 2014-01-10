@@ -9,7 +9,7 @@ describe Stencil::Base do
 
   let :user_class do
     class UserProfileStencil < Stencil::Base
-      template "spec/fixtures/user_profile_stencil.html.erb"
+      template "spec/fixtures/user_profile_stencil"
       needs :user
       attr_writer :size
 
@@ -43,6 +43,17 @@ describe Stencil::Base do
 
     it "should return true if all required keys are present" do
       sample_class.assert_keys([:cool, :awesome, :great]).should be_true
+    end
+  end
+
+  describe ".template" do
+    it "should allow overriding form a parent template" do
+      class BasicProfileStencil < user_class
+        template "spec/fixtures/basic_profile_stencil"
+      end
+
+      user_class.template_file.should == "./spec/fixtures/user_profile_stencil.html.erb"
+      BasicProfileStencil.template_file.should == "./spec/fixtures/basic_profile_stencil.html.erb"
     end
   end
 

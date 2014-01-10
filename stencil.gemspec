@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["carlosrr@gmail.com"]
   spec.description   = %q{Very reusable and maintanable template widgets}
   spec.summary       = %q{Stencil is a small framework to generate very reusable and testable views. Each stencil class has its own methods and template file. It's inspired by Erector to allow for inheritance and encapsulation without losing the convenience of template files.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/cohitre/stencil"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
