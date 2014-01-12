@@ -25,14 +25,10 @@ module Stencil
       find_all(file).first || raise(TemplateNotFoundError.new(self, file))
     end
 
-    def glob_string(path, filename)
-      File.join(path, "#{filename}.*")
-    end
-
   private
-
     def files(path, filename)
-      files = Dir.glob glob_string(path, filename)
+      glob_string = File.join(path, "#{filename}.*")
+      files = Dir.glob(glob_string)
       files.find_all do |p|
         p =~ /\.(#{extensions.join("|")})$/
       end

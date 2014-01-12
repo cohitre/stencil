@@ -41,11 +41,4 @@ describe Stencil::TemplateFinder do
       end.to raise_error(Stencil::TemplateNotFoundError)
     end
   end
-
-  describe "#glob_string" do
-    it "should be normalized" do
-      subject.glob_string("./spec/", "/cool_file").should == "./spec/cool_file.*"
-
-    end
-  end
 end
