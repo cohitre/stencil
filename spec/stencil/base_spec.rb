@@ -9,7 +9,7 @@ describe Stencil::Base do
 
   let :user_class do
     class UserProfileStencil < Stencil::Base
-      template "spec/fixtures/user_profile_stencil"
+      template "user_profile_stencil"
       needs :user
       attr_writer :size
 
@@ -22,10 +22,6 @@ describe Stencil::Base do
       end
     end
     UserProfileStencil
-  end
-
-  before do
-    Stencil::Config.paths << "./"
   end
 
   describe ".needs" do
@@ -51,9 +47,9 @@ describe Stencil::Base do
   end
 
   describe ".template" do
-    it "should allow overriding form a parent template" do
+    it "should allow overriding a parent template" do
       class BasicProfileStencil < user_class
-        template "spec/fixtures/basic_profile_stencil"
+        template "basic_profile_stencil"
       end
 
       user_class.template_file.should == "./spec/fixtures/user_profile_stencil.html.erb"
