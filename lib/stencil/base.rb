@@ -2,6 +2,7 @@ module Stencil
   class MissingNeedError < StandardError; end
 
   class Base
+    include HtmlHelpers
     class << self
       def needs(*keys)
         @keys ||= []
