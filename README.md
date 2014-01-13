@@ -9,15 +9,11 @@ encapsulation without losing the convenience of template files.
 
 Add this line to your application's Gemfile:
 
-    gem 'stencil'
+    gem 'stencil', git: "git://github.com/cohitre/stencil.git"
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install stencil
 
 ## Usage
 
@@ -27,7 +23,7 @@ Or install it yourself as:
 # app/stencils/user_information_stencil.rb
 
 class UserInformationStencil < Stencil::Base
-  template "app/stencils/user_information_stencil.html.erb"
+  template "user_information_stencil"
   needs :user
   attr_writer :size
 
@@ -48,12 +44,16 @@ end
 </div>
 ```
 
-```ruby
-# some_other_file.ruby
+```haml
+- #user_profile.haml
 
-stencil = UserInformationStencil.new(user: @user)
-stencil.size = :big
-stencil.render
+:ruby
+  # initialize your stencil instance
+  user_profile = UserInformationStencil.new(user: current_user)
+  user_profile.size = :big
+
+= user_profile.render
+
 ```
 
 ## Contributing
