@@ -24,6 +24,10 @@ describe Stencil::Base do
     UserProfileStencil
   end
 
+  before do
+    Stencil::Config.paths << "./"
+  end
+
   describe ".needs" do
     it "should concatenate the passed arguments" do
       sample = Class.new(described_class)

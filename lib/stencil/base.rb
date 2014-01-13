@@ -22,12 +22,7 @@ module Stencil
       end
 
       def template_file
-        finder = TemplateFinder.new
-        finder.extensions << :haml
-        finder.extensions << :erb
-
-        finder.paths << "."
-
+        finder = Stencil::Config.default_template_finder
         @template_file ||= finder.find(@template_name)
       end
     end

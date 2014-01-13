@@ -1,14 +1,15 @@
 module Stencil
   module Config
     class << self
-      attr_accessor :extra_template_paths
+      def paths
+        @paths ||= []
+      end
 
-      def template_paths
-        if defined?(Rails)
-          Rails.template_paths + extra_template_paths
-        else
-          extra_template_paths
-        end
+      def default_template_finder
+        finder = TemplateFinder.new
+        finder.paths.concat self.paths
+        finder.extensions.concat %w[haml erb]
+        finder
       end
     end
   end
