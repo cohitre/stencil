@@ -25,10 +25,14 @@ And then execute:
 class UserInformationStencil < Stencil::Base
   template "user_information_stencil"
   needs :user
-  attr_writer :size
+  optional size: :small
 
   def big?
     @size == :big
+  end
+
+  def small?
+    @size == :small
   end
 
   def name
@@ -49,8 +53,7 @@ end
 
 :ruby
   # initialize your stencil instance
-  user_profile = UserInformationStencil.new(user: current_user)
-  user_profile.size = :big
+  user_profile = UserInformationStencil.new(user: current_user, size: :big)
 
 = user_profile.render
 
