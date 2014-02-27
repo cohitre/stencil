@@ -11,7 +11,7 @@ describe Stencil::Base do
     class UserProfileStencil < Stencil::Base
       template "user_profile_stencil"
       needs :user
-      attr_writer :size
+      optional size: :small
 
       def big?
         @size == :big
@@ -22,6 +22,50 @@ describe Stencil::Base do
       end
     end
     UserProfileStencil
+  end
+
+  describe ".optional" do
+    class OptionalUserProfileStencil < Stencil::Base
+      template "user_profile_stencil"
+      needs :user
+      optional size: 16, color: 'blue', computed: -> { 2 + 2 }
+
+      attr_reader :size, :computed
+
+      def blue?
+        @color == 'blue'
+      end
+
+      def green?
+        @color == 'green'
+      end
+    end
+
+    let(:optional_class) { OptionalUserProfileStencil }
+    let(:user) { double(:user) }
+
+    subject { optional_class.new(user: user) }
+
+    it "should have defaults" do
+      expect(subject).to be_blue
+      expect(subject.size).to eq(16)
+    end
+
+    it "should allow overrides" do
+      subject = optional_class.new(user: user, size: 50, color: 'green')
+      expect(subject).to be_green
+      expect(subject.size).to eq(50)
+    end
+
+    it "should allow partial overrides" do
+      subject = optional_class.new(user: user, size: 100)
+      expect(subject).to be_blue
+      expect(subject.size).to eq(100)
+    end
+
+    it "should allow a computed block as an optional default" do
+      expect(subject.computed).to eq(4)
+    end
   end
 
   describe ".needs" do
