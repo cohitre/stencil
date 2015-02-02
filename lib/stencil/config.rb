@@ -1,6 +1,10 @@
 module Stencil
   module Config
     class << self
+      def add_to_paths(new_paths)
+        self.paths.concat new_paths
+      end
+
       def paths
         @paths ||= []
       end
