@@ -59,7 +59,7 @@ end
 
 ```
 
-# Rails integration
+## Rails integration
 
 If you're using Rails, Stencil will look in `app/stencils` for
 templates to be used with it (`.erb` or `.haml` files).
